@@ -2,8 +2,7 @@ from __future__ import print_function
 import time
 import argparse
 
-from heat import init_fields, write_field, iterate
-
+from heatc import init_fields, write_field, iterate
 
 def main(input_file='bottle.dat', a=0.5, dx=0.1, dy=0.1, 
          timesteps=200, image_interval=4000):
@@ -31,7 +30,7 @@ def main(input_file='bottle.dat', a=0.5, dx=0.1, dy=0.1,
     write_field(field, timesteps)
 
     print("Simulation finished in {0} s".format(t1-t0))
-
+    
 if __name__ == '__main__':
 
     # Process command line arguments
@@ -46,10 +45,16 @@ if __name__ == '__main__':
                         help='number of time steps')
     parser.add_argument('-i', type=int, default=4000,
                         help='image interval')
-    parser.add_argument('-f', type=str, default='bottle.dat', 
+    parser.add_argument('-f', type=str, default='../../numpy/heat-equation/bottle_large.dat', 
                         help='input file')
 
     args = parser.parse_args()
 
     main(args.f, args.a, args.dx, args.dy, args.n, args.i)
+    
+    # profile with
+    # python -m cProfile -o heat_large.dat heat_main.py
+    
+    # build with
+    # python setup.py build_ext --inplace
 
